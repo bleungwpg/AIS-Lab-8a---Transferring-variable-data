@@ -1,0 +1,111 @@
+<html>
+<head>
+<title> Lab 8 Keeping Items </title>
+<script src="../processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+/* @pjs globalKeyEvents = "true"; */
+
+// keepBeaker = 0 means do not show beaker
+// keepBeaker = 1 means show beaker
+int keepBeaker;
+PImage beaker;
+
+int keepFlashlight;
+PImage flashlight;
+
+
+void setup()
+{  
+	size( 700, 450 );  
+	background(33,125,246);
+
+	if (sessionStorage.transferbeaker == null)
+	{
+		keepBeaker = 0;
+	}
+	else
+	{
+		keepBeaker = sessionStorage.transferbeaker;
+	}
+	
+	
+	if (sessionStorage.transferflashlight == null)
+	{
+		keepFlashlight = 0;
+	}
+	else
+	{
+		keepFlashlight = sessionStorage.transferflashlight;
+	}
+	
+	beaker = loadImage("Images/beaker.png");
+	flashlight = loadImage("Images/flashlight.png");
+	// start beaker off with not showing value of 0
+}  
+
+void draw()
+{
+	background(33,125,246);
+
+	text(keepBeaker,10,10);
+
+	if (keepBeaker == 1)
+	{
+		image(beaker,600,10);
+	}
+	
+	if (mousePressed == true && mouseButton == LEFT)
+	{
+		if (mouseX > 60 && mouseX < 160 && mouseY > 60 && mouseY < 160)
+		{
+			keepBeaker = 1;
+		}
+	}
+	
+	fill(255,255,255);
+	rect(60,60,100,100);
+	fill(0,0,0);
+	text("Show Beaker",75,110);
+
+
+
+	// original white square behind yellow
+	if (keepFlashlight == 1)
+	{
+		image(flashlight,600,100);
+	}
+
+	if (mousePressed == true && mouseX > 60 && mouseX < 160 && mouseY > 170 && mouseY < 270)
+	{
+		keepFlashlight = 1;		
+	}
+
+	fill(255,255,255);
+	rect(60,170,100,100);
+	fill(0,0,0);
+	text("Show Flashlight",68,220);
+
+
+	if (mousePressed == true && mouseX > 60 && mouseX < 160 && mouseY > 290 && mouseY < 390)
+	{
+		sessionStorage.transferbeaker = keepBeaker;
+		sessionStorage.transferflashlight = keepFlashlight;
+		link("lab8b2.html");
+	}
+	fill(255,255,255);
+	rect(60,280,100,100);
+	fill(0,0,0);
+	text("lab8b2",78,335);
+
+}
+
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>
